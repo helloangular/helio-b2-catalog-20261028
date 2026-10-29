@@ -3,6 +3,11 @@ run-name: ${{ inputs.helio_execution_id || format('B2 catalog release {0}', gith
 # qa227 B2 application caller (29 Oct 2026). Calls the B2 copy of the synthetic catalog template in the central
 # repository (branch qa227-b2-cat-20261029) pinned to a 40-character commit.
 on:
+  push:
+    branches: [main]
+    paths: ['b2-catalog/**']
+  schedule:
+    - cron: '17 * * * *'
   workflow_dispatch:
     inputs:
       helio_execution_id:
