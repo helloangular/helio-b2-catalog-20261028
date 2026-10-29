@@ -1,0 +1,23 @@
+name: b2-catalog-release
+run-name: ${{ inputs.helio_execution_id || format('B2 catalog release {0}', github.sha) }}
+# qa227 B2 application caller (29 Oct 2026). Calls the B2 copy of the synthetic catalog template in the central
+# repository (branch qa227-b2-cat-20261029) pinned to a 40-character commit.
+on:
+  workflow_dispatch:
+    inputs:
+      helio_execution_id:
+        type: string
+        required: false
+        default: ''
+      helio_target_environment:
+        type: string
+        required: false
+        default: ''
+permissions:
+  contents: read
+jobs:
+  deploy:
+    uses: helloangular/helio-client-capacity-20260916/.github/workflows/qa227-b2-catalog-template.yml@0eb4fbc625e7f353cee2f4bcd6fb60155eb07903
+    with:
+      helio_execution_id: ${{ inputs.helio_execution_id || '' }}
+      helio_target_environment: ${{ inputs.helio_target_environment || '' }}
