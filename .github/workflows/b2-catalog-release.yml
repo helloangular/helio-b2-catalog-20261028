@@ -22,6 +22,9 @@ permissions:
   contents: read
 jobs:
   deploy:
+    # A waiting scheduled run holds the template's per-environment concurrency group and would keep dispatched runs pending.
+    # Scheduled runs therefore only run while the repository variable B2_CATALOG_SCHEDULE_ARMED is 'true' (armed only for the TC-220 schedule variant).
+    if: ${{ github.event_name != 'schedule' || vars.B2_CATALOG_SCHEDULE_ARMED == 'true' }}
     uses: helloangular/helio-client-capacity-20260916/.github/workflows/qa227-b2-catalog-template.yml@0eb4fbc625e7f353cee2f4bcd6fb60155eb07903
     with:
       helio_execution_id: ${{ inputs.helio_execution_id || '' }}
