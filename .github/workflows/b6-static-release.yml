@@ -8,6 +8,10 @@ on:
       helio_execution_id:
         type: string
         required: true
+      environment:
+        type: string
+        required: false
+        default: b2-cat-qa
       helio_release_id:
         type: string
         required: false
