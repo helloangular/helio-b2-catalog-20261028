@@ -1,5 +1,5 @@
 name: b6-static-release
-run-name: ${{ inputs.helio_execution_id || format('B6 static release {0}', github.sha) }}
+run-name: ${{ inputs.helio_execution_id }}
 # qa227 B6 (30 Oct 2026): a STATIC workflow for TC-236. Its environments are literal in the file; it does not read
 # HELIO_ENVIRONMENTS and cannot expand to a newly attached catalog environment.
 on:
@@ -7,8 +7,16 @@ on:
     inputs:
       helio_execution_id:
         type: string
+        required: true
+      helio_release_id:
+        type: string
         required: false
-        default: ''
+      workflow_revision:
+        type: string
+        required: false
+      release_version:
+        type: string
+        required: false
 permissions:
   contents: read
 jobs:
